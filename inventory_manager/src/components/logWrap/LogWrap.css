@@ -1,0 +1,89 @@
+.login-reg-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.login-reg-text {
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.login-reg-text h1 {
+    font-size: 4em;
+    color:rgb(255, 255, 255);
+    text-shadow: 2px 2px 2px rgb(97, 97, 97);
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: capitalize;
+    /* font-variant: small-caps; */
+}
+
+.login-reg-text p {
+    font-size: 3em;
+    color:rgb(207, 255, 49);
+    text-shadow: 3px 2px 2px rgb(85, 85, 85);
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: capitalize;
+    font-variant: small-caps;
+}
+
+.login-reg-nav {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-around;
+    /* align-items: flex-end; */
+    width: 80%;
+    height: 80%;
+}
+
+#register {
+    height: 25vh;
+    width: 25vw;
+    background-image: linear-gradient(to bottom left, rgb(50, 182, 111), rgb(100, 211, 96), rgb(40, 150, 54));
+    /* box-shadow: 12px 8px 6px rgb(59, 61, 59); */
+    font-size: 3em;
+    color: rgb(221, 221, 221);
+    text-shadow: 4px 2px 2px rgb(37, 37, 37);
+}
+
+#login {
+    height: 25vh;
+    width: 25vw;
+    background-image: linear-gradient(to top right, rgb(121, 155, 235), rgb(63, 55, 180), rgb(55, 9, 141));
+    /* box-shadow: 12px 8px 6px rgb(59, 61, 59); */
+    font-size: 3em;
+    color: rgb(221, 221, 221);
+    text-shadow: 4px 2px 2px rgb(37, 37, 37);
+}
+
+button {
+    opacity: .8;
+    border-radius: 20px;
+}
+
+button:hover {
+    animation-name: solidify;
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+@keyframes solidify {
+    100% {
+        opacity: 1;
+    }
+}
+
+hr {
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
