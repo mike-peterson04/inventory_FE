@@ -6,12 +6,11 @@ const RegForm = (props) => {
     
     const Submittal = () => {
         const userReg = {
-            FirstName: inputs.firstName,
-            LastName: inputs.lastName,
+            Name: inputs.Name,
             UserName: inputs.userName,
             Password: inputs.password,
             Email: inputs.email,
-            PhoneNumber: inputs.phoneNumber
+           
         }
         console.log("registered", userReg); 
         props.registerUser(userReg);
@@ -24,11 +23,8 @@ const RegForm = (props) => {
             <h4>Sign Up</h4>
             <form onSubmit = {handleSubmit} >
                 <div className="form-group d-flex flex-column">
-                    <label htmlFor="firstName">First Name: </label>
-                    <input className="form-rounded form-control" type="text" name="firstName" onChange={handleChange} value={inputs.firstName} spellCheck="false"/>
-
-                    <label htmlFor="lastName">Last Name: </label>
-                    <input className="form-rounded form-control" type="text" name="lastName" onChange={handleChange} value={inputs.lastName} spellCheck="false"/>
+                    <label htmlFor="firstName">Name: </label>
+                    <input className="form-rounded form-control" type="text" name="Name" onChange={handleChange} value={inputs.firstName} spellCheck="false"/>
 
                     <label htmlFor="userName">Username: </label>
                     <input className="form-rounded form-control" type="text" name="userName" onChange={handleChange} value={inputs.userName} spellCheck="false"/>
@@ -38,9 +34,6 @@ const RegForm = (props) => {
 
                     <label htmlFor="email">Email: </label>
                     <input className="form-rounded form-control" type="text" name="email" onChange={handleChange} value={inputs.email} spellCheck="false"/>
-
-                    <label htmlFor="phoneNumber">Phone Number: </label>
-                    <input className="form-rounded form-control" type="text" name="phoneNumber" onChange={handleChange} value={inputs.phoneNumber} spellCheck="false"/>
                     <br/>
                     <button className="btn btn-success" type="submit">Sign Up!</button>
                 </div>
