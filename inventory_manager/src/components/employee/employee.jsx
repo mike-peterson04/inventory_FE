@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import EmployeeProducts from './employee_products'
+import RequestWrapper from '../requests/requestWrapper'
 
 class Employee extends Component{
     constructor(props){
@@ -14,13 +15,22 @@ class Employee extends Component{
         }
     }
 
-    viewProducts = () => {
-        this.setState({renderIndex:'Products'})
+    purge = async(event) =>{
+        event.preventDefault();
+        this.setState({
+            employee:this.props.employee,
+            renderIndex:'home',
+            assignedProducts:await this.myHardware()
+        })
+    }
+
+    changeView = (event,key) => {
+        event.preventDefault();
+        this.setState({renderIndex:key})
     }
 
     updateProduct = async(event, product, key)=>{
         event.preventDefault();
-        debugger;
         let token = localStorage.getItem('token')
         let config = {headers: { Authorization: `Bearer ${token}` }};
         let statusKey = this.props.structure.status;
@@ -89,13 +99,16 @@ class Employee extends Component{
         if(this.state.renderIndex === 'home'){
             return(
                 <div>
-                    <button className='btn btn-secondary' onClick={this.viewProducts}>My Products</button><br/>
-                    <button className='btn btn-secondary'>My Requests</button>
+                    <button className='btn btn-secondary' onClick={(e)=>this.changeView(e,'products')}>My Products</button><br/>
+                    <button className='btn btn-secondary' onClick={(e)=>this.changeView(e,'requests')}>My Requests</button>
                 </div>
             )
         }
-        else if(this.state.renderIndex === 'Products'){
+        else if(this.state.renderIndex === 'products'){
             return <EmployeeProducts updateProduct={this.updateProduct} products={this.state.assignedProducts} model={this.props.structure.products} status={this.props.structure.status}/>;
+        }
+        else if(this.state.renderIndex === 'requests'){
+            return <RequestWrapper purge={this.purge} accessLevel={1} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>;
         }
 
         
