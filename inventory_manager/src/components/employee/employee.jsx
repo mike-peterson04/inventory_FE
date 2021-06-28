@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.css';
+import EmployeeProducts from './employee_products'
 
 class Employee extends Component{
     constructor(props){
@@ -12,25 +14,91 @@ class Employee extends Component{
         }
     }
 
+    viewProducts = () => {
+        this.setState({renderIndex:'Products'})
+    }
+
+    updateProduct = async(event, product, key)=>{
+        event.preventDefault();
+        debugger;
+        let token = localStorage.getItem('token')
+        let config = {headers: { Authorization: `Bearer ${token}` }};
+        let statusKey = this.props.structure.status;
+        if (key === 'confirm'){
+            statusKey = statusKey.filter((status)=>{
+                if (status.name.toUpperCase() === 'CHECKED_OUT'){
+                    return true;
+                }
+                return false;
+            });
+        }
+        else if (key === 'return'){
+            statusKey = statusKey.filter((status)=>{
+                if (status.name.toUpperCase() === 'PENDING_CHECK_IN'){
+                    return true;
+                }
+                return false;
+            });
+        }
+        else if (key === 'lost'){
+            statusKey = statusKey.filter((status)=>{
+                if (status.name.toUpperCase() === 'LOST_BROKEN'){
+                    return true;
+                }
+                return false;
+            });
+        }
+        else{
+            statusKey = statusKey.filter((status)=>{
+                if (status.name.toUpperCase() === 'CHECKED_OUT'){
+                    return true;
+                }
+                return false;
+            });
+        }
+        product.status = statusKey[0].id;
+        try{
+            product = await Axios.put('http://127.0.0.1:8000/api/request/product/'+product.id+'/', product, config)
+            if(product.status === 200){
+                this.componentDidMount()
+            }
+            
+        }
+        catch(e){
+            console.log(e);
+            alert("there was a problem updating please contact your DBA")
+        }
+        
+
+    }
+
     myHardware = async() => {
         let token = localStorage.getItem('token')
         let config = {headers: { Authorization: `Bearer ${token}` }};
-        debugger;
         let products = await Axios.get('http://127.0.0.1:8000/api/request/myproducts/'+this.state.employee.id, config)
         return(products.data)  
 
     }
-    componentDidMount(){
-        let products = this.myHardware()
+    async componentDidMount(){
+        let products = await this.myHardware()
+        this.setState({assignedProducts:products})
     }
 
     render(){
+        console.log('rendering', this.state.renderIndex)
+        if(this.state.renderIndex === 'home'){
+            return(
+                <div>
+                    <button className='btn btn-secondary' onClick={this.viewProducts}>My Products</button><br/>
+                    <button className='btn btn-secondary'>My Requests</button>
+                </div>
+            )
+        }
+        else if(this.state.renderIndex === 'Products'){
+            return <EmployeeProducts updateProduct={this.updateProduct} products={this.state.assignedProducts} model={this.props.structure.products} status={this.props.structure.status}/>;
+        }
 
-        return(
-            <div>
-                another something else
-            </div>
-        )
+        
     }
 }
 export default Employee;

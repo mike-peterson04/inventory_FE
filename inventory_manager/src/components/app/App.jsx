@@ -4,6 +4,7 @@ import LogWrap from '../logWrap/LogWrap'
 import Axios from 'axios'
 import jwtDecode from 'jwt-decode';
 import Employee from '../employee/employee'
+import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends Component {
   constructor(props){
@@ -11,9 +12,31 @@ class App extends Component {
     this.state = {
       employeeRole:"no data",
       roles:"no data",
-      activeUser:"none"
+      activeUser:"none",
+      activeStructure:'none'
     }
   }
+
+
+  getModels = async() =>{
+    try {
+      let seed = await Axios.get('http://127.0.0.1:8000/api/request/initial')
+      return seed.data
+      
+    } catch (error) {
+      console.log(error)
+      alert("there was an error with getting basic information from the database please confirm your site has been properly setup")
+      
+    }
+
+  }
+
+  async componentDidMount(){
+    let pageseed = await this.getModels();
+    this.setState({activeStructure:pageseed})
+  }
+
+
   registerUser = async(user) =>{
     let newUser = {
       username:user.UserName,
@@ -46,7 +69,6 @@ class App extends Component {
 
 
   loginUser = async(userLogin, create=false, user={name:"null"}) =>  {
-    debugger;
     try{
       let data = await Axios.post('http://127.0.0.1:8000/api/token/', userLogin);
       console.log('Logged in User', data);
@@ -72,7 +94,6 @@ class App extends Component {
     }
 
     confirmAccess = async()=> {
-      debugger;
       let token = localStorage.getItem('token');
       let config = {headers: { Authorization: `Bearer ${token}` }};
       //Database MUST have the following role.name values ['Employee', 'Manager','Store_Manager','Warehouse_Employee']
@@ -110,11 +131,20 @@ class App extends Component {
 
 
   render(){
-    debugger;
     if(this.state.employeeRole === "no data"){
       return (
-        <div className="App">
-          <LogWrap loginUser={this.loginUser} registerUser={this.registerUser}/>
+        <div className="container-fluid col-md-8 vertical-center">
+          <div className="row">
+          <div className="col-sm">
+
+          </div>
+            <div className="col-sm">
+              <LogWrap loginUser={this.loginUser} registerUser={this.registerUser}/>
+            </div>
+            <div className="col-sm">
+            
+          </div>
+          </div>
         </div>
       );
     }
@@ -127,7 +157,20 @@ class App extends Component {
     }
     else if(this.state.employeeRole === 'Employee'){
       return(
-        <Employee Employee={this.state.employee}/>
+        <div className="container-fluid col-md-8 vertical-center">
+          <div className="row">
+          <div className="col-sm">
+
+          </div>
+            <div className="col-sm">
+            <Employee Employee={this.state.employee} structure={this.state.activeStructure}/>
+            </div>
+            <div className="col-sm">
+            
+          </div>
+          </div>
+        </div>
+        
       )
     }
     else{

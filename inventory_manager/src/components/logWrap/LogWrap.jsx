@@ -26,8 +26,8 @@ class LogWrap extends Component{
                         <h1>please sign in or register</h1>
                     </div>
                     <div className="login-reg-nav">
-                        <button id="register" onClick={this.registerStart}>Register</button> 
-                        <button id="login" onClick={this.loginStart}>Login</button>
+                        <button className='btn btn-primary' id="register" onClick={this.registerStart}>Register</button> 
+                        <button className='btn btn-primary' id="login" onClick={this.loginStart}>Login</button>
                     </div>
                 </div>
             );
