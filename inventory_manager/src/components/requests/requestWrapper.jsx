@@ -54,6 +54,15 @@ class RequestWrapper extends Component{
                     </div>
                 )
             }
+            else if(this.state.accessLevel === 2){
+                return(
+                    <div>
+                        <button className='btn btn-warning' onClick={(e)=>this.setIndex(e,'view')}>My Open Requests</button><br/>
+                        <button className='btn btn-warning' onClick={(e)=>this.setIndex(e,'create')}>Make Request</button><br/>
+                        <button className='btn btn-warning' onClick={(e)=>this.props.purge(e)}>Go Back</button><br/>
+                    </div>
+                )
+            }
         }
         if(this.state.renderIndex === 'create'){
             return(

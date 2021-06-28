@@ -5,6 +5,7 @@ import Axios from 'axios'
 import jwtDecode from 'jwt-decode';
 import Employee from '../employee/employee'
 import 'bootstrap/dist/css/bootstrap.css';
+import Storefront from '../storefront/storefront';
 
 class App extends Component {
   constructor(props){
@@ -173,10 +174,21 @@ class App extends Component {
         
       )
     }
-    else{
+    else if(this.state.employeeRole === 'Store_Manager'){
       return (
-        <div className="App">
-          Something else
+        <div className="container-fluid col-md-8 vertical-center">
+          <div className="row">
+          <div className="col-sm">
+
+          </div>
+            <div className="col-sm">
+            <Storefront Employee={this.state.employee} structure={this.state.activeStructure}/>
+
+            </div>
+            <div className="col-sm">
+            
+          </div>
+          </div>
         </div>
         );
 

@@ -9,7 +9,7 @@ class Employee extends Component{
 
         super(props);
         this.state = {
-            employee:props.Employee,
+            employee:props.employee,
             renderIndex:'home',
             assignedProducts:'none'
         }
