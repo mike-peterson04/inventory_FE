@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import LogWrap from '../logWrap/LogWrap'
 import Axios from 'axios'
 import jwtDecode from 'jwt-decode';
+import Employee from '../employee/employee'
 
 class App extends Component {
   constructor(props){
@@ -123,6 +124,11 @@ class App extends Component {
             Under Construction
           </div>
         );
+    }
+    else if(this.state.employeeRole === 'Employee'){
+      return(
+        <Employee Employee={this.state.employee}/>
+      )
     }
     else{
       return (
