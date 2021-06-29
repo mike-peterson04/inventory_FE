@@ -3,6 +3,7 @@ import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import RequestWrapper from '../requests/requestWrapper'
 import Employee from '../employee/employee'
+import StorefrontProducts from './storefront_products';
 
 class Storefront extends Component{
     constructor(props){
@@ -46,7 +47,6 @@ class Storefront extends Component{
         let token = localStorage.getItem('token');
         let config = {headers: { Authorization: `Bearer ${token}` }};
         let store;
-        debugger;
         try{
             store = await Axios.get('http://127.0.0.1:8000/api/request/store/'+this.state.employee.id,config)
             if(store.status===200){
@@ -60,6 +60,13 @@ class Storefront extends Component{
 
         }
     }
+    myStoreHardware = async(storeId) => {
+        let token = localStorage.getItem('token')
+        let config = {headers: { Authorization: `Bearer ${token}` }};
+        let products = await Axios.get('http://127.0.0.1:8000/api/request/stock/'+storeId, config)
+        return(products.data)  
+
+    }
 
     updateProduct = async(event, product, key)=>{
         event.preventDefault();
@@ -68,15 +75,15 @@ class Storefront extends Component{
         let statusKey = this.props.structure.status;
         if (key === 'confirm'){
             statusKey = statusKey.filter((status)=>{
-                if (status.name.toUpperCase() === 'CHECKED_OUT'){
+                if (status.name.toUpperCase() === 'AT_STORE'){
                     return true;
                 }
                 return false;
             });
         }
-        else if (key === 'return'){
+        else if (key === 'sold'){
             statusKey = statusKey.filter((status)=>{
-                if (status.name.toUpperCase() === 'PENDING_CHECK_IN'){
+                if (status.name.toUpperCase() === 'SOLD'){
                     return true;
                 }
                 return false;
@@ -92,7 +99,7 @@ class Storefront extends Component{
         }
         else{
             statusKey = statusKey.filter((status)=>{
-                if (status.name.toUpperCase() === 'CHECKED_OUT'){
+                if (status.name.toUpperCase() === 'RETURNING_FROM_STORE'){
                     return true;
                 }
                 return false;
@@ -116,9 +123,12 @@ class Storefront extends Component{
 
 
     async componentDidMount(){
-        debugger;
         let store = await this.loadStore()
-        this.setState({store:store})
+        let stock = await this.myStoreHardware(store.id)
+        this.setState({
+            store:store,
+            assignedProducts:stock
+        })
 
     }
 
@@ -142,6 +152,7 @@ class Storefront extends Component{
                 return(<RequestWrapper purge={this.purge} accessLevel={2} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>);
             }
             else if(this.state.secondaryIndex === 'stock'){
+                return(<StorefrontProducts updateProduct={this.updateProduct} model={this.props.structure.products} status={this.props.structure.status} products={this.state.assignedProducts}/>)
                 
             }
             else{
