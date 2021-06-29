@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
-import EmployeeProducts from '../employee/employee_products';
 import Employee from '../employee/employee';
 import RequestWrapper from '../requests/requestWrapper';
 
@@ -85,9 +84,10 @@ class Warehouse extends Component{
                 );
             }
             else if(this.state.secondaryIndex==='requests'){
+                debugger;
                 return(
                     <div>
-                        requests
+                        <RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={3} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>
                         <button className='btn btn-dark' onClick={(e)=>{this.purge(e)}}>Go Back</button>
                     </div>
                 );

@@ -208,7 +208,7 @@ class App extends Component {
 
           </div>
             <div className="col-sm">
-            <Warehouse buildHeader={this.buildHeader} Employee={this.state.employee} structure={this.state.activeStructure}/>
+            <Warehouse buildHeader={this.buildHeader} employee={this.state.employee} structure={this.state.activeStructure}/>
 
             </div>
             <div className="col-sm">

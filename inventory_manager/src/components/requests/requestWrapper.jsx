@@ -37,6 +37,9 @@ class RequestWrapper extends Component{
     async componentDidMount(){
         let filteredRequestType = this.props.request.filter((type)=>{
             if(type.access <= this.state.accessLevel){
+                if(type.access==2 && this.state.accessLevel > 2){
+                    return false;
+                }
                 return true;
             }
             return false;
@@ -60,6 +63,14 @@ class RequestWrapper extends Component{
                         <button className='btn btn-warning' onClick={(e)=>this.setIndex(e,'view')}>My Open Requests</button><br/>
                         <button className='btn btn-warning' onClick={(e)=>this.setIndex(e,'create')}>Make Request</button><br/>
                         <button className='btn btn-warning' onClick={(e)=>this.props.purge(e)}>Go Back</button><br/>
+                    </div>
+                )
+            }
+            else if(this.state.accessLevel === 3){
+                return(
+                    <div>
+                        <button className='btn btn-dark' onClick={(e)=>this.setIndex(e,'view')}>Open Requests</button><br/>
+                        <button className='btn btn-dark' onClick={(e)=>this.setIndex(e,'create')}>Make New Request</button><br/>
                     </div>
                 )
             }
