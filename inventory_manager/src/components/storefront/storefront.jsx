@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import RequestWrapper from '../requests/requestWrapper'
 import Employee from '../employee/employee'
 import StorefrontProducts from './storefront_products';
+import ReportManager from './reportManager';
 
 class Storefront extends Component{
     constructor(props){
@@ -121,13 +122,36 @@ class Storefront extends Component{
 
     }
 
+    uploadReport = async(event,report)=>{
+        event.preventDefault();
+        let token = localStorage.getItem('token')
+        let config = {headers: { Authorization: `Bearer ${token}` }};
+        let check
+        try {
+            check = await Axios.put('http://127.0.0.1:8000/api/request/store/1',report,config)
+            if (check.status==200){
+                alert("your report has been processed")
+                this.componentDidMount()
+
+            }
+            
+        } catch (error) {
+            console.log(error);
+            alert("there was an issue with uploading your report")
+            
+        }
+
+
+    }
+
 
     async componentDidMount(){
         let store = await this.loadStore()
         let stock = await this.myStoreHardware(store.id)
         this.setState({
             store:store,
-            assignedProducts:stock
+            assignedProducts:stock,
+            renderIndex:'home'
         })
 
     }
@@ -146,6 +170,7 @@ class Storefront extends Component{
         }
         else if(this.state.renderIndex === 'store'){
             if(this.state.secondaryIndex === 'report'){
+                return(<ReportManager uploadReport={this.uploadReport}/>)
 
             }
             else if(this.state.secondaryIndex === 'request'){

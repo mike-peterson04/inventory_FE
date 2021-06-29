@@ -164,7 +164,7 @@ class App extends Component {
 
           </div>
             <div className="col-sm">
-            <Employee Employee={this.state.employee} structure={this.state.activeStructure}/>
+            <Employee employee={this.state.employee} structure={this.state.activeStructure}/>
             </div>
             <div className="col-sm">
             

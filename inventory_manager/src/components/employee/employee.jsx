@@ -83,6 +83,7 @@ class Employee extends Component{
     }
 
     myHardware = async() => {
+        debugger;
         let token = localStorage.getItem('token')
         let config = {headers: { Authorization: `Bearer ${token}` }};
         let products = await Axios.get('http://127.0.0.1:8000/api/request/myproducts/'+this.state.employee.id, config)
@@ -95,6 +96,7 @@ class Employee extends Component{
     }
 
     render(){
+        debugger;
         console.log('rendering', this.state.renderIndex)
         if(this.state.renderIndex === 'home'){
             return(
