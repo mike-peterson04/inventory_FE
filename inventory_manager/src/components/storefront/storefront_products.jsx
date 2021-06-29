@@ -31,30 +31,36 @@ function StorefrontProducts(props){
         let model = getModel(product.model)
         let status = getStatus(product.status)
         if(status.toUpperCase() !== 'SOLD'){
-        return(<table>
-            <tbody>
-                <tr>
-                    <td>Model:</td>
-                    <td>{model}</td>
-                    <td>Current Status:</td>
-                    <td>{status}</td>
-                </tr>
-                <tr>
-                    <td>
-                        {status.toUpperCase() ==='AT_STORE'&&<button className='btn btn-warning' onClick={(e)=>props.updateProduct(e,product,'sold')}>Report Sold</button>}
-                    </td>
-                    <td>
-                        {status.toUpperCase() ==='AT_STORE_IN_TRANSIT'&&<button className='btn btn-warning'onClick={(e)=>props.updateProduct(e,product,'confirm')}>Confirm Delivery</button>}
-                    </td>
-                    <td>
-                        <button className='btn btn-warning'onClick={(e)=>props.updateProduct(e,product,'lost')}>Report Lost or Damaged</button>
-                    </td>
-                    <td>
-                        Product_Id: {product.id}
-                    </td>
-                </tr>
-            </tbody>
-        </table>)}
+        return(
+        <div>
+            <hr width='80%'align='center'/>
+            <table className='table table-striped'>
+                <tbody>
+                    <tr>
+                        <td>Model:</td>
+                        <td>{model}</td>
+                        <td>Current Status:</td>
+                        <td>{status}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {status.toUpperCase() ==='AT_STORE'&&<button className='btn btn-warning' onClick={(e)=>props.updateProduct(e,product,'sold')}>Report Sold</button>}
+                        </td>
+                        <td>
+                            {status.toUpperCase() ==='AT_STORE_IN_TRANSIT'&&<button className='btn btn-warning'onClick={(e)=>props.updateProduct(e,product,'confirm')}>Confirm Delivery</button>}
+                        </td>
+                        <td>
+                            <button className='btn btn-warning'onClick={(e)=>props.updateProduct(e,product,'lost')}>Report Lost or Damaged</button>
+                        </td>
+                        <td>
+                            Product_Id: {product.id}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <hr width='80%'align='center'/>
+        </div>)}
 
     }
 

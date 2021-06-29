@@ -31,8 +31,8 @@ class Employee extends Component{
 
     updateProduct = async(event, product, key)=>{
         event.preventDefault();
-        let token = localStorage.getItem('token')
-        let config = {headers: { Authorization: `Bearer ${token}` }};
+        
+        let config = this.props.buildHeader();
         let statusKey = this.props.structure.status;
         if (key === 'confirm'){
             statusKey = statusKey.filter((status)=>{
@@ -84,8 +84,7 @@ class Employee extends Component{
 
     myHardware = async() => {
         debugger;
-        let token = localStorage.getItem('token')
-        let config = {headers: { Authorization: `Bearer ${token}` }};
+        let config = this.props.buildHeader();
         let products = await Axios.get('http://127.0.0.1:8000/api/request/myproducts/'+this.state.employee.id, config)
         return(products.data)  
 
@@ -110,7 +109,7 @@ class Employee extends Component{
             return <EmployeeProducts updateProduct={this.updateProduct} products={this.state.assignedProducts} model={this.props.structure.products} status={this.props.structure.status}/>;
         }
         else if(this.state.renderIndex === 'requests'){
-            return <RequestWrapper purge={this.purge} accessLevel={1} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>;
+            return <RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={1} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>;
         }
 
         

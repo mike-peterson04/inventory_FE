@@ -45,8 +45,7 @@ class Storefront extends Component{
     }
 
     loadStore = async() =>{
-        let token = localStorage.getItem('token');
-        let config = {headers: { Authorization: `Bearer ${token}` }};
+        let config = this.props.buildHeader()
         let store;
         try{
             store = await Axios.get('http://127.0.0.1:8000/api/request/store/'+this.state.employee.id,config)
@@ -62,8 +61,8 @@ class Storefront extends Component{
         }
     }
     myStoreHardware = async(storeId) => {
-        let token = localStorage.getItem('token')
-        let config = {headers: { Authorization: `Bearer ${token}` }};
+        
+        let config = this.props.buildHeader();
         let products = await Axios.get('http://127.0.0.1:8000/api/request/stock/'+storeId, config)
         return(products.data)  
 
@@ -71,8 +70,7 @@ class Storefront extends Component{
 
     updateProduct = async(event, product, key)=>{
         event.preventDefault();
-        let token = localStorage.getItem('token')
-        let config = {headers: { Authorization: `Bearer ${token}` }};
+        let config = this.props.buildHeader();
         let statusKey = this.props.structure.status;
         if (key === 'confirm'){
             statusKey = statusKey.filter((status)=>{
@@ -110,7 +108,8 @@ class Storefront extends Component{
         try{
             product = await Axios.put('http://127.0.0.1:8000/api/request/product/'+product.id+'/', product, config)
             if(product.status === 200){
-                this.componentDidMount()
+                alert("your product has been updated")
+                this.purge(event)
             }
             
         }
@@ -124,8 +123,8 @@ class Storefront extends Component{
 
     uploadReport = async(event,report)=>{
         event.preventDefault();
-        let token = localStorage.getItem('token')
-        let config = {headers: { Authorization: `Bearer ${token}` }};
+        
+        let config = this.props.buildHeader()
         let check
         try {
             check = await Axios.put('http://127.0.0.1:8000/api/request/store/1',report,config)
@@ -166,7 +165,7 @@ class Storefront extends Component{
             )
         }
         else if(this.state.renderIndex ==='self'){
-            return (<Employee employee={this.state.employee} structure={this.props.structure}/>)
+            return (<Employee buildHeader={this.props.buildHeader} employee={this.state.employee} structure={this.props.structure}/>)
         }
         else if(this.state.renderIndex === 'store'){
             if(this.state.secondaryIndex === 'report'){
@@ -174,7 +173,7 @@ class Storefront extends Component{
 
             }
             else if(this.state.secondaryIndex === 'request'){
-                return(<RequestWrapper purge={this.purge} accessLevel={2} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>);
+                return(<RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={2} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>);
             }
             else if(this.state.secondaryIndex === 'stock'){
                 return(<StorefrontProducts updateProduct={this.updateProduct} model={this.props.structure.products} status={this.props.structure.status} products={this.state.assignedProducts}/>)

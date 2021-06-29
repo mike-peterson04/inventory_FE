@@ -66,7 +66,7 @@ class RequestWrapper extends Component{
         }
         if(this.state.renderIndex === 'create'){
             return(
-                <MakeRequest purge={this.props.purge} employee={this.state.employee.id} type={this.state.approvedRequests} model={this.props.model}/>
+                <MakeRequest buildHeader={this.props.buildHeader} purge={this.props.purge} employee={this.state.employee.id} type={this.state.approvedRequests} model={this.props.model}/>
             )
         }
     }
