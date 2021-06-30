@@ -3,6 +3,7 @@ import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import Employee from '../employee/employee';
 import RequestWrapper from '../requests/requestWrapper';
+import InventoryManager from '../inventoryManager/inventoryManager';
 
 class Warehouse extends Component{
     constructor(props){
@@ -17,7 +18,7 @@ class Warehouse extends Component{
             employees:'none',
             status:props.structure.status,
             requestType:props.structure.request,
-            model:props.structure.product
+            model:props.structure.products
         }
     }
 
@@ -78,13 +79,12 @@ class Warehouse extends Component{
             if(this.state.secondaryIndex === 'inventory'){
                 return(
                     <div>
-                        inventory
+                        <InventoryManager buildHeader={this.props.buildHeader} purge={this.purge} status={this.state.status} buildHeader={this.props.buildHeader} model={this.state.model}/>
                         <button className='btn btn-dark' onClick={(e)=>{this.purge(e)}}>Go Back</button>
                     </div>
                 );
             }
             else if(this.state.secondaryIndex==='requests'){
-                debugger;
                 return(
                     <div>
                         <RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={3} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>

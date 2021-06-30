@@ -30,7 +30,6 @@ class RequestWrapper extends Component{
         event.preventDefault()
     }
     setIndex=(event,key)=>{
-        debugger;
         event.preventDefault();
         this.setState({renderIndex:key})
     }
