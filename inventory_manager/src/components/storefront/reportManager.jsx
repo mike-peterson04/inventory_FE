@@ -6,6 +6,7 @@ import DataTable from 'react-data-table-component';
 
 
 const ReportManager = (props) =>{
+  debugger;
  
     const [columns, setColumns] = useState([]);
     const [data, setData] = useState([]);

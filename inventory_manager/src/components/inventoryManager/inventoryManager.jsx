@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Axios from 'axios';
 import Receiving from './receiving';
+import ReportManager from '../storefront/reportManager';
+import EditSelector from './editSelector';
 
 class InventoryManager extends Component{
     constructor(props){
@@ -13,7 +15,7 @@ class InventoryManager extends Component{
 
     }
 
-    updateProduct = async(event, product, key)=>{
+    updateProduct = async(event, product, key='')=>{
         
         event.preventDefault();
         let config = this.props.buildHeader();
@@ -41,6 +43,9 @@ class InventoryManager extends Component{
                 }
                 return false;
             });
+        }
+        else{
+            statusKey = [{id:product.status},{id:product.status}]
         }
         product.status = statusKey[0].id;
         try{
@@ -141,7 +146,8 @@ class InventoryManager extends Component{
             returningProduct:returning,
             currentEmployees:employees,
             supportedStores:stores,
-            renderIndex:'home'
+            renderIndex:'home',
+            secondaryIndex:'none'
         });
 
 
@@ -159,6 +165,7 @@ class InventoryManager extends Component{
         }
     }
 
+
     changeView = (e,key, primary=true)=>{
         e.preventDefault();
         if(primary){
@@ -169,7 +176,30 @@ class InventoryManager extends Component{
         }
     }
 
+    uploadReport = async(event,report)=>{
+        event.preventDefault();
+        
+        let config = this.props.buildHeader()
+        let check
+        try {
+            check = await Axios.put('http://127.0.0.1:8000/api/request/store/1',report,config)
+            if (check.status==200){
+                alert("your report has been processed")
+                this.componentDidMount()
+
+            }
+            
+        } catch (error) {
+            console.log(error);
+            alert("there was an issue with uploading your report")
+            
+        }
+
+
+    }
+
     render(){
+        
         if(this.state.renderIndex==='home'){
             return(
             <div>
@@ -183,9 +213,24 @@ class InventoryManager extends Component{
             );
         }
         else if(this.state.renderIndex === 'fullfillment'){
-            return(
-                <div></div>
+            if(this.state.secondaryIndex === 'bulk'){
+                return(
+                <div><ReportManager uploadReport={this.uploadReport}/></div>
             );
+            }
+            else if(this.state.secondaryIndex === 'single'){
+                return(
+                <div><EditSelector update={this.updateProduct} stores={this.state.supportedStores} products={this.state.products} model={this.props.model} status={this.state.status}/></div>
+            );
+            }
+            else{
+                return(
+                <div>
+                    <button className='btn btn-dark' onClick={(e)=>{this.changeView(e,"bulk",false)}}>Upload CSV for bulk updates</button><br/>
+                    <button className='btn btn-dark' onClick={(e)=>{this.changeView(e,"single",false)}}>Update individual product</button>
+                </div>
+            );
+            }
         }
     }
 }
