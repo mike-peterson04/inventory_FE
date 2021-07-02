@@ -34,14 +34,6 @@ class Warehouse extends Component{
 
     
 
-    trackedProducts = () =>{
-        return true;
-    }
-
-    trackedRequests = () =>{
-        return true;
-    }
-
     purge = (event)=>{
         this.setState({
             renderIndex:'home',
@@ -50,14 +42,8 @@ class Warehouse extends Component{
             allRequests:'none',
             employees:'none',
         });
-        this.componentDidMount()
     }
 
-    async componentDidMount(){
-        let allProducts = await this.trackedProducts()
-        let allRequests = await this.trackedRequests()
-
-    }
 
 
     render()

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import MakeRequest from './makeRequest';
-// import ViewRequest from ',/ViewRequest';
+import ViewRequest from './viewRequest'
 
 class RequestWrapper extends Component{
     constructor(props){
@@ -33,6 +33,21 @@ class RequestWrapper extends Component{
         event.preventDefault();
         this.setState({renderIndex:key})
     }
+    getProducts = async() => {
+        let config = this.props.buildHeader();
+        let products;
+        try {
+            products = await Axios.get('http://127.0.0.1:8000/api/request/product',config)
+            if (products.status===200){
+                return products.data
+            }
+            
+        } catch (error) {
+            console.log(error);
+            alert('there was a problem loading your page info please try again')
+            
+        }
+    }
     async componentDidMount(){
         let filteredRequestType = this.props.request.filter((type)=>{
             if(type.access <= this.state.accessLevel){
@@ -43,7 +58,8 @@ class RequestWrapper extends Component{
             }
             return false;
         })
-        this.setState({approvedRequests:filteredRequestType})
+        let products = await this.getProducts()
+        this.setState({approvedRequests:filteredRequestType, products:products})
     }
     render(){
         if(this.state.renderIndex === 'home'){
@@ -77,6 +93,11 @@ class RequestWrapper extends Component{
         if(this.state.renderIndex === 'create'){
             return(
                 <MakeRequest buildHeader={this.props.buildHeader} purge={this.props.purge} employee={this.state.employee.id} type={this.state.approvedRequests} model={this.props.model}/>
+            )
+        }
+        if(this.state.renderIndex === 'view'){
+            return(
+                <ViewRequest accessLevel={this.state.employee.type} type={this.props.request} status={this.props.status} products={this.state.products} buildHeader={this.props.buildHeader} purge={this.props.purge} employee={this.state.employee} type={this.state.approvedRequests} model={this.props.model}/>
             )
         }
     }
