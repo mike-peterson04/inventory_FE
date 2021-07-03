@@ -7,6 +7,7 @@ import Employee from '../employee/employee'
 import 'bootstrap/dist/css/bootstrap.css';
 import Storefront from '../storefront/storefront';
 import Warehouse from '../warehouse/warehouse'
+import Management from '../managment/management';
 
 class App extends Component {
   constructor(props){
@@ -209,6 +210,25 @@ class App extends Component {
           </div>
             <div className="col-sm">
             <Warehouse buildHeader={this.buildHeader} employee={this.state.employee} structure={this.state.activeStructure}/>
+
+            </div>
+            <div className="col-sm">
+            
+          </div>
+          </div>
+        </div>
+        );
+
+    }
+    else if(this.state.employeeRole === 'Manager'){
+      return (
+        <div className="container-fluid col-md-8 vertical-center">
+          <div className="row">
+          <div className="col-sm">
+
+          </div>
+            <div className="col-sm">
+            <Management buildHeader={this.buildHeader} employee={this.state.employee} structure={this.state.activeStructure}/>
 
             </div>
             <div className="col-sm">
