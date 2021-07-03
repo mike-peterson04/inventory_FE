@@ -185,6 +185,23 @@ class ViewRequest extends Component{
         return result;
     }
 
+    getProducts = async() =>{
+        let config = this.props.buildHeader();
+        let products;
+        try {
+            products = await Axios.get('http://127.0.0.1:8000/api/request/product',config)
+            if (products.status===200){
+                return products.data
+            }
+            
+        } catch (error) {
+            console.log(error);
+            alert('there was a problem loading your page info please try again')
+            
+        }
+
+    }
+
     stockCounter = (products) =>{
         let models = [];
         let result =[];
@@ -229,11 +246,16 @@ class ViewRequest extends Component{
             
         }
 
-        
 
     }
-    redraw = () =>{
-        this.setState({renderIndex:false})
+
+    redraw = async() =>{
+        let products = await this.getProducts()
+        this.setState(
+            {
+                renderIndex:false,
+                products:products
+            });
         this.componentDidMount()
     }
 
@@ -295,7 +317,7 @@ class ViewRequest extends Component{
     
       }
 
-    async componentDidMount(){
+    async componentDidMount(){     
         
         let internal = this.parseAvailable(true);
         let retail = this.parseAvailable(false);
