@@ -89,6 +89,10 @@ class ViewRequest extends Component{
                     
                     product.push(placeholder.pop());
                 }
+                let result = await Axios.put('http://127.0.0.1:8000/api/request/assign/'+request.employee, product,config)
+                if (result.status = 200){
+                    alert('successfully completed the request please collect the items on your next audit for distribution')
+                }
 
 
             }
@@ -111,6 +115,10 @@ class ViewRequest extends Component{
                     
                     product.push(placeholder.pop());
                 }
+                let result = await Axios.post('http://127.0.0.1:8000/api/request/assign/'+request.employee+'/',product,config)
+                if (result.status = 201){
+                    alert('successfully completed the request please collect the items on your next audit for distribution')
+                }
 
 
             }
@@ -119,9 +127,12 @@ class ViewRequest extends Component{
         else{
             alert("this option cannot be granted automatically so please ensure you have completed the requested action (the request HAS been marked complete)")
         }
+        await Axios.put('http://127.0.0.1:8000/api/request/',request,config)
+        this.redraw()
         }
         catch(e){
             alert("was unable to complete this request please confirm you have enough available product")
+            this.redraw()
         }
 
 
