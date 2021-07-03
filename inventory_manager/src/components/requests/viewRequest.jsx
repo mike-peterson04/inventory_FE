@@ -16,7 +16,7 @@ class ViewRequest extends Component{
             status:'none',
             requestType:'none',
             activeRequests:[],
-            model:'none'
+            model:props.model
         }
     }
 
@@ -65,7 +65,65 @@ class ViewRequest extends Component{
     
     }
 
-    assignProduct = async()=>{
+    assignProduct = async(event, request)=>{
+        event.preventDefault()
+        let type = this.requestType(request.type);
+        let config = this.props.buildHeader()
+        let product = []
+        debugger;
+        try{
+        if (type.name==='Store_inventory'){
+            if (request.quantity>this.showQuantity(request.product,false)){
+                alert('unable to complete request, not enough product available');
+            }
+            else{
+                let placeholder =[];
+                while (product.length !== request.quantity) {
+                    if (placeholder.length===0){
+                        placeholder = this.state.employeeProducts.filter(product=>{
+                        if(product.model===request.product){
+                            return true;
+                        }
+                        return false;
+                    });}
+                    
+                    product.push(placeholder.pop());
+                }
+
+
+            }
+
+        }
+        else if(type.name === 'Employee_Product'){
+            if (request.quantity>this.showQuantity(request.product,true)){
+                alert('unable to complete request, not enough product available'); 
+            }
+            else{
+                let placeholder =[];
+                while (product.length !== request.quantity) {
+                    if (placeholder.length===0){
+                        placeholder = this.state.employeeProducts.filter(product=>{
+                        if(product.model===request.product){
+                            return true;
+                        }
+                        return false;
+                    });}
+                    
+                    product.push(placeholder.pop());
+                }
+
+
+            }
+
+        }
+        else{
+            alert("this option cannot be granted automatically so please ensure you have completed the requested action (the request HAS been marked complete)")
+        }
+        }
+        catch(e){
+            alert("was unable to complete this request please confirm you have enough available product")
+        }
+
 
     }
 
@@ -120,18 +178,21 @@ class ViewRequest extends Component{
         let models = [];
         let result =[];
         let count = 0;
+        debugger;
         for(let i=1;i<=this.state.model.length;i++){
             models.push(i)
         }
         for(let i=0;i<models.length;i++){
             products.forEach((product)=>{
                 if (product.model === models[i]){
+                    console.log(product);
                     count++
                 }
             });
             
             
             result.push({id:models[i],amount:count})
+            count=0;
             
         } 
         return result;
@@ -202,7 +263,7 @@ class ViewRequest extends Component{
                         </tr>
                         <tr>
                             <td colSpan='3'>{request.justification}<hr width='80%' align='center'/></td>
-                            <td>{request.approval&&<button className='btn btn-dark'>Mark Complete</button>}</td>
+                            <td>{request.approval&&<button className='btn btn-dark' onClick={(e)=>this.assignProduct(e, request)}>Mark Complete</button>}</td>
                         </tr>
                 </React.Fragment>
             );
