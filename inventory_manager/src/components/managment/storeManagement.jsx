@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Axios from 'axios'
 import Storefront from '../storefront/storefront';
+import StoreMaker from './storeMaker';
 
 class StoreManagement extends Component{
 
@@ -9,7 +10,7 @@ class StoreManagement extends Component{
         this.state = {
             managers:'none',
             activeManager:'none',
-            renderIndex:'home',
+            renderIndex:'none',
             secondaryIndex:'none'
         }
     }
@@ -48,12 +49,13 @@ class StoreManagement extends Component{
     }
 
     createStore = async(event, store) =>{
+        debugger;
         event.preventDefault()
         
         let config = this.props.buildHeader();
         try {
-            let newStore = await Axios.post('http://127.0.0.1:8000/api/request/store/0/',store,config)
-            if (newStore.status === 200){
+            let newStore = await Axios.post('http://127.0.0.1:8000/api/request/store/0',store,config)
+            if (newStore.status === 201){
                 alert('new store has been created')
                 this.props.purge()
             }
@@ -77,6 +79,38 @@ class StoreManagement extends Component{
         }
     }
 
+    availableManagers = async(employees) =>{
+        let managers = this.sortManagers(employees);
+        let stores = await this.currentStores();
+
+        managers = managers.filter((manager)=>{
+            for(let i=0;i<stores.length;i++){
+                if (stores[i].manager === manager.id){
+                    return false
+                }
+
+            }
+            return true
+        })
+        return managers
+
+
+
+    }
+
+    currentStores = async() =>{
+        try {
+            let stores = await Axios.get('http://127.0.0.1:8000/api/request/store/0',this.props.buildHeader());
+            if (stores.status === 200){
+                return stores.data;
+            }
+            
+        } catch (error) {
+            alert('unable to reach api please try again')
+            
+        }
+    }
+
     sortManagers = (employees) =>{
         
         let managers = employees.filter((employee)=>{
@@ -86,16 +120,23 @@ class StoreManagement extends Component{
             }
             return false;
         });
-        return managers;
+        if (managers.length>0)
+        {return managers;}
+        alert('there are no unassigned store managers so store creation is not currently supported please promote store manager')
 
     }
 
     async componentDidMount(){
-        let managers = await this.allEmployees();
-        managers = this.sortManagers(managers);
+        let employees = await this.allEmployees();
+        let managers = this.sortManagers(employees);
+        let availableManagers = await this.availableManagers(employees)
+        debugger;
 
         this.setState({
+            employees:employees,
             managers:managers,
+            available:availableManagers,
+            renderIndex:'home'
         })
     }
 
@@ -127,7 +168,7 @@ class StoreManagement extends Component{
         }
         else if(this.state.renderIndex === 'create'){
             return(
-                'create pending'
+                <StoreMaker managers={this.state.available} createStore={this.createStore}/>
             )
         }
         else{
