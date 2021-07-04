@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Employee from '../employee/employee';
 import RequestWrapper from '../requests/requestWrapper';
 import InventoryManager from '../inventoryManager/inventoryManager';
-import StoreManagement from './storeManagement';
+import StoreManagement from './storeManagement/storeManagement';
+import EmployeeManagement from './employeeManagement/employeeManagement';
 
 class Management extends Component{
     constructor(props){
@@ -12,7 +13,7 @@ class Management extends Component{
         super(props);
         this.state = {
             employee:props.employee,
-            renderIndex:'home',
+            renderIndex:'none',
             secondaryIndex:'none',
             allProducts:'none',
             allRequests:'none',
@@ -20,6 +21,20 @@ class Management extends Component{
             status:props.structure.status,
             requestType:props.structure.request,
             model:props.structure.products
+        }
+    }
+
+    allEmployees = async() =>{
+        try {
+            
+            let employees = await Axios.get('http://127.0.0.1:8000/api/request/employee/',this.props.buildHeader());
+            if (employees.status === 200){
+                return employees.data
+            }
+            
+        } catch (error) {
+            console.log(error);
+            alert('there was a problem loading your page info please try again')  
         }
     }
 
@@ -33,15 +48,41 @@ class Management extends Component{
         }
     }
 
+    getRoles = async() =>{
+        try {
+            let config = this.props.buildHeader()
+            let result = await Axios.get('http://127.0.0.1:8000/api/request/role/',config)
+            if (result.status = 200){
+                return result.data
+            }
+            
+        } catch (error) {
+            alert('problem with loading page please try again')
+            
+        }
+    }
+
     
 
     purge = (event)=>{
         this.setState({
-            renderIndex:'home',
+            renderIndex:'none',
             secondaryIndex:'none',
             allProducts:'none',
             allRequests:'none',
             employees:'none',
+        });
+        this.componentDidMount()
+    }
+
+    async componentDidMount(){
+        let employees = await this.allEmployees()
+        let roles = await this.getRoles()
+        this.setState({
+            employees:employees,
+            roles:roles,
+            renderIndex:'home'
+
         });
     }
 
@@ -69,7 +110,7 @@ class Management extends Component{
             if(this.state.secondaryIndex === 'inventory'){
                 return(
                     <div>
-                        <InventoryManager buildHeader={this.props.buildHeader} purge={this.purge} status={this.state.status} buildHeader={this.props.buildHeader} model={this.state.model}/>
+                        <InventoryManager allEmployees={this.allEmployees} buildHeader={this.props.buildHeader} purge={this.purge} status={this.state.status} buildHeader={this.props.buildHeader} model={this.state.model}/>
                         <button className='btn btn-dark' onClick={(e)=>{this.purge(e)}}>Go Back</button>
                     </div>
                 );
@@ -94,10 +135,19 @@ class Management extends Component{
             }
     }
     else if(this.state.renderIndex === 'product'){
-        return(<button className='btn btn-danger' onClick={(e)=>{this.purge(e)}}>Go Back</button>)
+        return(
+        <div>
+            
+            <button className='btn btn-danger' onClick={(e)=>{this.purge(e)}}>Go Back</button>
+        </div>)
     }  
     else if(this.state.renderIndex === 'employee'){
-        return(<button className='btn btn-danger' onClick={(e)=>{this.purge(e)}}>Go Back</button>)
+        return(
+            <div>
+                <EmployeeManagement purge={this.purge} role={this.state.roles}employees={this.state.employees} buildHeader={this.props.buildHeader} />
+                <button className='btn btn-danger' onClick={(e)=>{this.purge(e)}}>Go Back</button>
+            </div>
+        )
     }
     else if(this.state.renderIndex=== 'store'){
         return(
@@ -106,6 +156,12 @@ class Management extends Component{
             <button className='btn btn-danger' onClick={(e)=>{this.purge(e)}}>Go Back</button>
         </div>)
     } 
+    else{
+        return(
+            <div>
+                Page is Loading
+            </div>)
+    }
     }
 }
 export default Management;

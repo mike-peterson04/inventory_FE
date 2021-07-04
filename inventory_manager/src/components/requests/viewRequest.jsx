@@ -80,7 +80,7 @@ class ViewRequest extends Component{
                 let placeholder =[];
                 while (product.length !== request.quantity) {
                     if (placeholder.length===0){
-                        placeholder = this.state.employeeProducts.filter(product=>{
+                        placeholder = this.state.retailProducts.filter(product=>{
                         if(product.model===request.product){
                             return true;
                         }
@@ -89,7 +89,7 @@ class ViewRequest extends Component{
                     
                     product.push(placeholder.pop());
                 }
-                let result = await Axios.put('http://127.0.0.1:8000/api/request/assign/'+request.employee, product,config)
+                let result = await Axios.put('http://127.0.0.1:8000/api/request/assign/'+request.employee+'/', product,config)
                 if (result.status = 200){
                     alert('successfully completed the request please collect the items on your next audit for distribution')
                 }

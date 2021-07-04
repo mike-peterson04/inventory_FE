@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Axios from 'axios'
-import Storefront from '../storefront/storefront';
+import Storefront from '../../storefront/storefront';
 import StoreMaker from './storeMaker';
 
 class StoreManagement extends Component{
@@ -65,19 +65,7 @@ class StoreManagement extends Component{
             alert('we were unable to process your request')
         }
     }
-    allEmployees = async() =>{
-        try {
-            
-            let employees = await Axios.get('http://127.0.0.1:8000/api/request/employee/',this.props.buildHeader());
-            if (employees.status === 200){
-                return employees.data
-            }
-            
-        } catch (error) {
-            console.log(error);
-            alert('there was a problem loading your page info please try again')  
-        }
-    }
+    
 
     availableManagers = async(employees) =>{
         let managers = this.sortManagers(employees);
@@ -127,7 +115,7 @@ class StoreManagement extends Component{
     }
 
     async componentDidMount(){
-        let employees = await this.allEmployees();
+        let employees = await this.props.allEmployees();
         let managers = this.sortManagers(employees);
         let availableManagers = await this.availableManagers(employees)
         debugger;
