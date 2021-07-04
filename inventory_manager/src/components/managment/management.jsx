@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Employee from '../employee/employee';
 import RequestWrapper from '../requests/requestWrapper';
 import InventoryManager from '../inventoryManager/inventoryManager';
+import StoreManagement from './storeManagement';
 
 class Management extends Component{
     constructor(props){
@@ -99,7 +100,11 @@ class Management extends Component{
         return(<button className='btn btn-danger' onClick={(e)=>{this.purge(e)}}>Go Back</button>)
     }
     else if(this.state.renderIndex=== 'store'){
-        return(<button className='btn btn-danger' onClick={(e)=>{this.purge(e)}}>Go Back</button>)
+        return(
+        <div>
+            <StoreManagement buildHeader={this.props.buildHeader} structure={this.props.structure}/>
+            <button className='btn btn-danger' onClick={(e)=>{this.purge(e)}}>Go Back</button>
+        </div>)
     } 
     }
 }

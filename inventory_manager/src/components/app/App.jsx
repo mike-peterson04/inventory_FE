@@ -16,7 +16,8 @@ class App extends Component {
       employeeRole:"no data",
       roles:"no data",
       activeUser:"none",
-      activeStructure:'none'
+      activeStructure:'none',
+      renderIndex:'init'
     }
   }
 
@@ -36,7 +37,7 @@ class App extends Component {
 
   async componentDidMount(){
     let pageseed = await this.getModels();
-    this.setState({activeStructure:pageseed})
+    this.setState({activeStructure:pageseed,renderIndex:'seeded'})
   }
 
 

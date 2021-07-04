@@ -12,7 +12,7 @@ class Storefront extends Component{
         super(props);
         this.state = {
             employee:props.Employee,
-            renderIndex:'home',
+            renderIndex:'none',
             secondaryIndex:'none',
             assignedProducts:'none',
             store:'none'
@@ -145,6 +145,7 @@ class Storefront extends Component{
 
 
     async componentDidMount(){
+        
         let store = await this.loadStore()
         let stock = await this.myStoreHardware(store.id)
         this.setState({
@@ -156,6 +157,7 @@ class Storefront extends Component{
     }
 
     render(){
+        
         if(this.state.renderIndex === 'home'){
             return(
                 <div>
@@ -189,6 +191,9 @@ class Storefront extends Component{
                 );
 
             }
+        }
+        else{
+            return('Page is loading')
         }
 
     }

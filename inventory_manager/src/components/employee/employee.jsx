@@ -83,7 +83,7 @@ class Employee extends Component{
     }
 
     myHardware = async() => {
-        debugger;
+        
         let config = this.props.buildHeader();
         let products = await Axios.get('http://127.0.0.1:8000/api/request/myproducts/'+this.state.employee.id, config)
         return(products.data)  
@@ -95,7 +95,7 @@ class Employee extends Component{
     }
 
     render(){
-        debugger;
+        
         console.log('rendering', this.state.renderIndex)
         if(this.state.renderIndex === 'home'){
             return(
