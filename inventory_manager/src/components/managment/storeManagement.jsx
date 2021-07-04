@@ -146,7 +146,7 @@ class StoreManagement extends Component{
             return(
 
                 <div>
-                    <button className='btn btn-danger' onClick={(e)=>{this.changeView(e,'create')}}>Create Store</button>
+                    <button className='btn btn-danger' onClick={(e)=>{this.changeView(e,'create')}}>Create Store</button><br/>
                     <button className='btn btn-danger' onClick={(e)=>{this.changeView(e,'store')}}>File request for store</button>
                 </div>
             )
