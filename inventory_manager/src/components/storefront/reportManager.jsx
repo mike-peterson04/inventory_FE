@@ -6,14 +6,14 @@ import DataTable from 'react-data-table-component';
 
 
 const ReportManager = (props) =>{
-  debugger;
+  
  
     const [columns, setColumns] = useState([]);
     const [data, setData] = useState([]);
     const [report, uploadReport] =useState();
    
     const handleFileUpload = e => {
-        debugger;
+        
         const file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = (evt) => {

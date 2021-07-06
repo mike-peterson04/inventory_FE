@@ -66,7 +66,6 @@ class RequestWrapper extends Component{
             if(this.state.accessLevel === 1){
                 return(
                     <div>
-                        <button className='btn btn-secondary' onClick={(e)=>this.setIndex(e,'view')}>My Open Requests</button><br/>
                         <button className='btn btn-secondary' onClick={(e)=>this.setIndex(e,'create')}>Make Request</button><br/>
                         <button className='btn btn-secondary' onClick={(e)=>this.props.purge(e)}>Go Back</button><br/>
                     </div>
@@ -75,9 +74,7 @@ class RequestWrapper extends Component{
             else if(this.state.accessLevel === 2){
                 return(
                     <div>
-                        <button className='btn btn-warning' onClick={(e)=>this.setIndex(e,'view')}>My Open Requests</button><br/>
                         <button className='btn btn-warning' onClick={(e)=>this.setIndex(e,'create')}>Make Request</button><br/>
-                        <button className='btn btn-warning' onClick={(e)=>this.props.purge(e)}>Go Back</button><br/>
                     </div>
                 )
             }

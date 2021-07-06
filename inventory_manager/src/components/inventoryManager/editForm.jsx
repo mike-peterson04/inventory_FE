@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 const EditForm = (props) =>{
     
     
-    debugger;
+    
     const [id, setId] = useState(props.product.id);
     const [hardware, setHardware] = useState(props.product.hardware_version);
     const [employee, setEmployee] = useState(props.product.employee_unit);
@@ -20,7 +20,7 @@ const EditForm = (props) =>{
 
     }
     function getStore(storeId){
-        debugger;
+        
         if(storeId===''){
             return 'Not Assigned'
         }
@@ -57,7 +57,7 @@ const EditForm = (props) =>{
     }
 
     function mapProduct(){
-        debugger;
+        
         let product = props.product
             if(product.id!==id){
                 product.id=id

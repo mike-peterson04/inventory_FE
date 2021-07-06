@@ -139,7 +139,7 @@ class InventoryManager extends Component{
         let returning = this.productFilter(products, 'validate');
         let employees = await this.allEmployees();
         let stores = await this.getStores();
-        debugger;
+        
 
         this.setState({
             products:products,

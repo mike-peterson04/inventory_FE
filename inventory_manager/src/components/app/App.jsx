@@ -149,7 +149,8 @@ class App extends Component {
 
           </div>
             <div className="col-sm">
-              <LogWrap loginUser={this.loginUser} registerUser={this.registerUser}/>
+              <h1 align='center'>Welcome to Company XYZ Product Management Suite</h1>
+              <center><LogWrap loginUser={this.loginUser} registerUser={this.registerUser}/></center>
             </div>
             <div className="col-sm">
             
@@ -173,7 +174,8 @@ class App extends Component {
 
           </div>
             <div className="col-sm">
-            <Employee buildHeader={this.buildHeader}  employee={this.state.employee} structure={this.state.activeStructure}/>
+            <h3 align='center'>Welcome to Company XYZ Product Management Suite</h3>
+            <center><Employee buildHeader={this.buildHeader}  employee={this.state.employee} structure={this.state.activeStructure}/></center>
             </div>
             <div className="col-sm">
             

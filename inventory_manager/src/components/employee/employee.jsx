@@ -96,6 +96,7 @@ class Employee extends Component{
 
     render(){
         
+        
         console.log('rendering', this.state.renderIndex)
         if(this.state.renderIndex === 'home'){
             return(
@@ -106,10 +107,18 @@ class Employee extends Component{
             )
         }
         else if(this.state.renderIndex === 'products'){
-            return <EmployeeProducts updateProduct={this.updateProduct} products={this.state.assignedProducts} model={this.props.structure.products} status={this.props.structure.status}/>;
+            return (
+                <div>
+            <EmployeeProducts updateProduct={this.updateProduct} products={this.state.assignedProducts} model={this.props.structure.products} status={this.props.structure.status}/>
+            <button className='btn btn-secondary' onClick={(e)=>this.changeView(e,'home')}>Go Back</button>
+            </div>
+            );
         }
         else if(this.state.renderIndex === 'requests'){
-            return <RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={1} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>;
+            return (
+            <div>
+            <RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={1} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>
+            </div>);
         }
 
         

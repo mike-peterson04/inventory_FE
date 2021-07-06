@@ -167,18 +167,27 @@ class Storefront extends Component{
             )
         }
         else if(this.state.renderIndex ==='self'){
-            return (<Employee buildHeader={this.props.buildHeader} employee={this.state.employee} structure={this.props.structure}/>)
+            return (<div>
+                <Employee buildHeader={this.props.buildHeader} employee={this.state.employee} structure={this.props.structure}/>
+                <button className='btn btn-warning' onClick={(e)=>this.changeView(e,'store')}>For My Store</button></div>)
         }
         else if(this.state.renderIndex === 'store'){
             if(this.state.secondaryIndex === 'report'){
-                return(<ReportManager uploadReport={this.uploadReport}/>)
+                return(<div><ReportManager uploadReport={this.uploadReport}/>
+                <button className='btn btn-warning' onClick={(e)=>this.purge(e)}>Go Back</button></div>
+                )
 
             }
             else if(this.state.secondaryIndex === 'request'){
-                return(<RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={2} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>);
+                return(
+                    <div>
+                <RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={2} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>
+                <button className='btn btn-warning' onClick={(e)=>this.purge(e)}>Go Back</button></div>
+                );
             }
             else if(this.state.secondaryIndex === 'stock'){
-                return(<StorefrontProducts updateProduct={this.updateProduct} model={this.props.structure.products} status={this.props.structure.status} products={this.state.assignedProducts}/>)
+                return(<div><StorefrontProducts updateProduct={this.updateProduct} model={this.props.structure.products} status={this.props.structure.status} products={this.state.assignedProducts}/>
+                    <button className='btn btn-warning' onClick={(e)=>this.purge(e)}>Go Back</button></div>)
                 
             }
             else{
@@ -187,6 +196,7 @@ class Storefront extends Component{
                     <button className='btn btn-warning' onClick={(e)=>this.changeView(e,'report',false)}>Upload Sales Report</button><br/>
                     <button className='btn btn-warning' onClick={(e)=>this.changeView(e,'stock',false)}>Assigned Stock</button><br/>
                     <button className='btn btn-warning' onClick={(e)=>this.changeView(e,'request',false)}>Request Stock</button><br/>
+                    <button className='btn btn-warning' onClick={(e)=>this.purge(e)}>Go Back</button>
                     </div>
                 );
 

@@ -2,7 +2,7 @@
 import Axios from 'axios'
 
 function EmployeeManagement(props){
-    debugger;
+    
 
     function buildTable(employee){
         return(

@@ -1,6 +1,9 @@
 
 function EmployeeProducts(props){
-    debugger;
+    
+    if(props.products.length === 0){
+        return('You currently are not assigned any products')
+    }
 
     function getModel(modelId){
         

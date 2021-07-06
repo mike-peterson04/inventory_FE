@@ -49,7 +49,7 @@ class StoreManagement extends Component{
     }
 
     createStore = async(event, store) =>{
-        debugger;
+        
         event.preventDefault()
         
         let config = this.props.buildHeader();
@@ -118,7 +118,7 @@ class StoreManagement extends Component{
         let employees = await this.props.allEmployees();
         let managers = this.sortManagers(employees);
         let availableManagers = await this.availableManagers(employees)
-        debugger;
+        
 
         this.setState({
             employees:employees,

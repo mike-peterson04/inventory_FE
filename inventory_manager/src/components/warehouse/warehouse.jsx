@@ -58,7 +58,9 @@ class Warehouse extends Component{
      }
      else if(this.state.renderIndex === 'self'){
          return(
-            <Employee buildHeader={this.props.buildHeader} employee={this.state.employee} structure={this.props.structure}/>
+            <div><Employee buildHeader={this.props.buildHeader} employee={this.state.employee} structure={this.props.structure}/>
+            <button className='btn btn-dark' onClick={(e)=>{this.purge(e)}}>Go Back</button>
+            </div>
          );
      }
      else if(this.state.renderIndex === 'warehouse'){

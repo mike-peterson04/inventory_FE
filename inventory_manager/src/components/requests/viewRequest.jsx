@@ -70,7 +70,7 @@ class ViewRequest extends Component{
         let type = this.requestType(request.type);
         let config = this.props.buildHeader()
         let product = []
-        debugger;
+        
         try{
         if (type.name==='Store_inventory'){
             if (request.quantity>this.showQuantity(request.product,false)){
@@ -206,7 +206,7 @@ class ViewRequest extends Component{
         let models = [];
         let result =[];
         let count = 0;
-        debugger;
+        
         for(let i=1;i<=this.state.model.length;i++){
             models.push(i)
         }
