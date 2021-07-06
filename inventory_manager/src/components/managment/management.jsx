@@ -6,6 +6,7 @@ import RequestWrapper from '../requests/requestWrapper';
 import InventoryManager from '../inventoryManager/inventoryManager';
 import StoreManagement from './storeManagement/storeManagement';
 import EmployeeManagement from './employeeManagement/employeeManagement';
+import ProductManagement from './productManagement/productManagement';
 
 class Management extends Component{
     constructor(props){
@@ -137,7 +138,7 @@ class Management extends Component{
     else if(this.state.renderIndex === 'product'){
         return(
         <div>
-            
+            <ProductManagement purge={this.purge} buildHeader={this.props.buildHeader} status={this.props.structure.status} model={this.props.structure.products}/>
             <button className='btn btn-danger' onClick={(e)=>{this.purge(e)}}>Go Back</button>
         </div>)
     }  
@@ -152,7 +153,7 @@ class Management extends Component{
     else if(this.state.renderIndex=== 'store'){
         return(
         <div>
-            <StoreManagement buildHeader={this.props.buildHeader} structure={this.props.structure}/>
+            <StoreManagement allEmployees={this.allEmployees} buildHeader={this.props.buildHeader} structure={this.props.structure}/>
             <button className='btn btn-danger' onClick={(e)=>{this.purge(e)}}>Go Back</button>
         </div>)
     } 

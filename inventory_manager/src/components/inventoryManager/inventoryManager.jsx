@@ -8,7 +8,7 @@ class InventoryManager extends Component{
     constructor(props){
         super(props);
         this.state={
-            renderIndex:'home',
+            renderIndex:'none',
              products:'none',
              status:props.status
         }
@@ -139,6 +139,7 @@ class InventoryManager extends Component{
         let returning = this.productFilter(products, 'validate');
         let employees = await this.allEmployees();
         let stores = await this.getStores();
+        debugger;
 
         this.setState({
             products:products,
@@ -231,6 +232,9 @@ class InventoryManager extends Component{
                 </div>
             );
             }
+        }
+        else{
+            return("Page is loading")
         }
     }
 }
