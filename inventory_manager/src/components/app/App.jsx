@@ -166,6 +166,7 @@ class App extends Component {
           </div>
         );
     }
+    //employee function
     else if(this.state.employeeRole === 'Employee'){
       return(
         <div className="container-fluid col-md-8 vertical-center">
