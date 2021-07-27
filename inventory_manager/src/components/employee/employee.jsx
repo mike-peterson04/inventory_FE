@@ -3,6 +3,7 @@ import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import EmployeeProducts from './employee_products'
 import RequestWrapper from '../requests/requestWrapper'
+import Navbar from '../navbar/navbar';
 
 class Employee extends Component{
     constructor(props){
@@ -101,6 +102,7 @@ class Employee extends Component{
         if(this.state.renderIndex === 'home'){
             return(
                 <div>
+                    <Navbar caller='employee' changeView={this.changeView}/>
                     <button className='btn btn-secondary' onClick={(e)=>this.changeView(e,'products')}>My Products</button><br/>
                     <button className='btn btn-secondary' onClick={(e)=>this.changeView(e,'requests')}>My Requests</button>
                 </div>
