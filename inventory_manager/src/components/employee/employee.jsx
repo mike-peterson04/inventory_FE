@@ -101,16 +101,30 @@ class Employee extends Component{
         console.log('rendering', this.state.renderIndex)
         if(this.state.renderIndex === 'home'){
             return(
-                <div>
-                    <Navbar caller='employee' changeView={this.changeView}/>
+            <span>
+                <Navbar caller='employee' changeView={this.changeView}/>
+                <div className="container-fluid col-md-8 vertical-center">
+                    <div className="row">
+                        <div className="col-sm">
+
+                        </div>
+                        <div className="col-sm">
+                            <h3>Welcome to the Employee Inventory Portal!</h3>   
+                        </div>
+                        <div className="col-sm">
+                
+                        </div>
+                    </div>
                 </div>
+            </span>
+                    
             )
         }
         else if(this.state.renderIndex === 'products'){
             return (
                 <div>
                     <Navbar caller='employee' changeView={this.changeView}/>
-                    <EmployeeProducts updateProduct={this.updateProduct} products={this.state.assignedProducts} model={this.props.structure.products} status={this.props.structure.status}/>
+                    <center><EmployeeProducts updateProduct={this.updateProduct} products={this.state.assignedProducts} model={this.props.structure.products} status={this.props.structure.status}/></center>
             </div>
             );
         }
@@ -118,7 +132,7 @@ class Employee extends Component{
             return (
             <div>
                 <Navbar caller='employee' changeView={this.changeView}/>
-                <RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={1} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>
+                <center><RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={1} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/></center>
             </div>);
         }
 
