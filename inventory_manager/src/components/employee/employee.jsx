@@ -103,23 +103,22 @@ class Employee extends Component{
             return(
                 <div>
                     <Navbar caller='employee' changeView={this.changeView}/>
-                    <button className='btn btn-secondary' onClick={(e)=>this.changeView(e,'products')}>My Products</button><br/>
-                    <button className='btn btn-secondary' onClick={(e)=>this.changeView(e,'requests')}>My Requests</button>
                 </div>
             )
         }
         else if(this.state.renderIndex === 'products'){
             return (
                 <div>
-            <EmployeeProducts updateProduct={this.updateProduct} products={this.state.assignedProducts} model={this.props.structure.products} status={this.props.structure.status}/>
-            <button className='btn btn-secondary' onClick={(e)=>this.changeView(e,'home')}>Go Back</button>
+                    <Navbar caller='employee' changeView={this.changeView}/>
+                    <EmployeeProducts updateProduct={this.updateProduct} products={this.state.assignedProducts} model={this.props.structure.products} status={this.props.structure.status}/>
             </div>
             );
         }
         else if(this.state.renderIndex === 'requests'){
             return (
             <div>
-            <RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={1} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>
+                <Navbar caller='employee' changeView={this.changeView}/>
+                <RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={1} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>
             </div>);
         }
 
