@@ -17,7 +17,30 @@ function Navbar(props){
                         </li>
                     </ul>
                 </div>
-            </nav>)
-        }
+            </nav>
+        )
+    }
+    else if(props.caller === 'warehouse'){
+        return (
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onClick={(e)=>props.changeView(e,'products')}>Manage Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"onClick={(e)=>props.changeView(e,'requests')}>Manage Requests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"onClick={(e)=>props.changeView(e,'requests')}>Make Request</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"onClick={(e)=>props.changeView(e,'requests')}>My Devices</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        )
+    }
 }
 export default Navbar

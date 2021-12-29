@@ -193,20 +193,7 @@ class App extends Component {
     }
     else if(this.state.employeeRole === 'Warehouse_Employee'){
       return (
-        <div className="container-fluid col-md-8 vertical-center">
-          <div className="row">
-          <div className="col-sm">
-
-          </div>
-            <div className="col-sm">
             <Warehouse buildHeader={this.buildHeader} employee={this.state.employee} structure={this.state.activeStructure}/>
-
-            </div>
-            <div className="col-sm">
-            
-          </div>
-          </div>
-        </div>
         );
 
     }
