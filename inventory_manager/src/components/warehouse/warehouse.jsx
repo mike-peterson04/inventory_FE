@@ -23,15 +23,12 @@ class Warehouse extends Component{
         }
     }
 
-    changeView = (e, primary="warehouse", key)=>{
-        debugger;
+    changeView = (e, primary, key=this.state.secondaryIndex)=>{
         e.preventDefault();
-        if(primary){
-            this.setState({renderIndex:key});
-        }
-        else{
-            this.setState({secondaryIndex:key});
-        }
+        this.setState({
+            renderIndex:primary,
+            secondaryIndex:key
+        })
     }
 
     
@@ -50,6 +47,7 @@ class Warehouse extends Component{
 
     render()
     {
+        debugger;
         
      if(this.state.renderIndex === 'home'){
          return(
