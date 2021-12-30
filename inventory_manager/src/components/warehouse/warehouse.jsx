@@ -5,6 +5,8 @@ import Employee from '../employee/employee';
 import RequestWrapper from '../requests/requestWrapper';
 import InventoryManager from '../inventoryManager/inventoryManager';
 
+//backup
+
 class Warehouse extends Component{
     constructor(props){
 
