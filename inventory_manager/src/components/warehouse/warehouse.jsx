@@ -23,7 +23,8 @@ class Warehouse extends Component{
         }
     }
 
-    changeView = (e,key, primary=true)=>{
+    changeView = (e, primary="warehouse", key)=>{
+        debugger;
         e.preventDefault();
         if(primary){
             this.setState({renderIndex:key});
@@ -49,6 +50,7 @@ class Warehouse extends Component{
 
     render()
     {
+        
      if(this.state.renderIndex === 'home'){
          return(
          <div>
@@ -67,25 +69,66 @@ class Warehouse extends Component{
             if(this.state.secondaryIndex === 'inventory'){
                 return(
                     <div>
-                        <InventoryManager buildHeader={this.props.buildHeader} purge={this.purge} status={this.state.status} buildHeader={this.props.buildHeader} model={this.state.model}/>
-                        <button className='btn btn-dark' onClick={(e)=>{this.purge(e)}}>Go Back</button>
+                        <Navbar caller='warehouse' changeView={this.changeView}/>
+                        <div className="container-fluid col-md-8 vertical-center">
+                            <div className="row">
+                                <div className="col-sm">
+
+                                </div>
+                                <div className="col-sm">
+                                <center><InventoryManager buildHeader={this.props.buildHeader} purge={this.purge} status={this.state.status} buildHeader={this.props.buildHeader} model={this.state.model}/></center>
+                                </div>
+                                <div className="col-sm">
+            
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 );
             }
             else if(this.state.secondaryIndex==='requests'){
                 return(
                     <div>
-                        <RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={3} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>
-                        <button className='btn btn-dark' onClick={(e)=>{this.purge(e)}}>Go Back</button>
+                        <Navbar caller='warehouse' changeView={this.changeView}/>
+                        <div className="container-fluid col-md-8 vertical-center">
+                            <div className="row">
+                                <div className="col-sm">
+
+                                </div>
+                                <div className="col-sm">
+                                <RequestWrapper buildHeader={this.props.buildHeader} purge={this.purge} accessLevel={3} request={this.props.structure.request} employee={this.state.employee} model={this.props.structure.products} status={this.props.structure.status}/>
+                                </div>
+                                <div className="col-sm">
+            
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
+                    
                 );
             }
             else {
                 return(
                     <div>
-                        <button className='btn btn-dark'onClick={(e)=>this.changeView(e,'inventory',false)}>Manage Inventory</button><br/>
-                        <button className='btn btn-dark'onClick={(e)=>this.changeView(e,'requests',false)}>Manage Requests</button><br/>
-                        <button className='btn btn-dark' onClick={(e)=>{this.purge(e)}}>Go Back</button>
+                        <Navbar caller='warehouse' changeView={this.changeView}/>
+                        <div className="container-fluid col-md-8 vertical-center">
+                            <div className="row">
+                                <div className="col-sm">
+
+                                </div>
+                                <div className="col-sm">
+                                    <button className='btn btn-dark'onClick={(e)=>this.changeView(e,'inventory',false)}>Manage Inventory</button><br/>
+                                    <button className='btn btn-dark'onClick={(e)=>this.changeView(e,'requests',false)}>Manage Requests</button><br/>
+
+                                </div>
+                                <div className="col-sm">
+            
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
 
                 );

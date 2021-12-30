@@ -26,16 +26,13 @@ function Navbar(props){
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#" onClick={(e)=>props.changeView(e,'products')}>Manage Products</a>
+                            <a class="nav-link" href="#" onClick={(e)=>props.changeView(e,'warehouse',"inventory")}>Manage Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"onClick={(e)=>props.changeView(e,'requests')}>Manage Requests</a>
+                            <a class="nav-link" href="#"onClick={(e)=>props.changeView(e,'warehouse','requests')}>Manage Requests</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"onClick={(e)=>props.changeView(e,'requests')}>Make Request</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"onClick={(e)=>props.changeView(e,'requests')}>My Devices</a>
+                            <a class="nav-link" href="#"onClick={(e)=>props.changeView(e,'self')}>Personal Management</a>
                         </li>
                     </ul>
                 </div>
