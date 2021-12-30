@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Employee from '../employee/employee';
 import RequestWrapper from '../requests/requestWrapper';
 import InventoryManager from '../inventoryManager/inventoryManager';
+import Navbar from '../navbar/navbar';
 
 class Warehouse extends Component{
     constructor(props){
@@ -51,8 +52,7 @@ class Warehouse extends Component{
      if(this.state.renderIndex === 'home'){
          return(
          <div>
-             <button className='btn btn-secondary' onClick={(e)=>this.changeView(e,'self')}>For Myself</button><br/>
-             <button className='btn btn-dark' onClick={(e)=>this.changeView(e,'warehouse')}>Warehouse Management</button><br/>
+             <Navbar caller='warehouse' changeView={this.changeView}/>
 
          </div>)
      }

@@ -191,6 +191,7 @@ class App extends Component {
         );
 
     }
+    //Warehouse employee
     else if(this.state.employeeRole === 'Warehouse_Employee'){
       return (
             <Warehouse buildHeader={this.buildHeader} employee={this.state.employee} structure={this.state.activeStructure}/>
